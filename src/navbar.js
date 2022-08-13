@@ -2,13 +2,14 @@
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import logo from './shared\\logo.png';
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
   { name: 'Ranks', href: '/ranks', current: false },
   { name: 'Draft Tool', href: '/drafttool', current: false },
-  { name: 'Blog', href: '###', current: false},
-  { name: 'Hype Hub', href: '###', current: false},
+  { name: 'Blog', href: '/blog', current: false},
+  { name: 'Hype Hub', href: '/hypehub', current: false},
 ]
 
 function classNames(...classes) {
@@ -37,12 +38,12 @@ export default function NavBar() {
                 <div className="flex-shrink-0 flex items-center">
                   <img
                     className="block lg:hidden h-8 w-auto"
-                    src="https://cdn.vox-cdn.com/thumbor/c48KzhI0pNK_7su82APDQg4izIU=/0x0:1908x1272/2420x1613/filters:focal(802x484:1106x788)/cdn.vox-cdn.com/uploads/chorus_image/image/69768435/1334320680.0.jpg"
+                    src={logo}
                     alt="FBSharp"
                   />
                   <img
                     className="hidden lg:block h-8 w-auto"
-                    src="https://cdn.vox-cdn.com/thumbor/c48KzhI0pNK_7su82APDQg4izIU=/0x0:1908x1272/2420x1613/filters:focal(802x484:1106x788)/cdn.vox-cdn.com/uploads/chorus_image/image/69768435/1334320680.0.jpg"                    
+                    src={logo}                   
                     alt="FBSharp"
                   />
                 <h3 className='
@@ -66,7 +67,7 @@ export default function NavBar() {
                   </div>
                 </div>
               </div>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+              {/*<div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <button
                   type="button"
                   className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
@@ -75,7 +76,7 @@ export default function NavBar() {
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
 
-                {/* Profile dropdown */}
+                {/* Profile dropdown
                 <Menu as="div" className="ml-3 relative">
                   <div>
                     <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
@@ -130,7 +131,7 @@ export default function NavBar() {
                     </Menu.Items>
                   </Transition>
                 </Menu>
-              </div>
+              </div>*/}
             </div>
           </div>
 
