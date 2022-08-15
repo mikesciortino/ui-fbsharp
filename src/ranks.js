@@ -1,29 +1,60 @@
+import { data } from 'autoprefixer';
+import axios from 'axios';
+import React, {useState, useEffect, useMemo} from 'react';
 import logo from './logo.svg';
-import NavBar from './navbar';
+import Table from "./Table";
 
-function Ranks() {
-  return (
+function Ranks(){
+  const [loadingData, setLoadingData] = useState(true);
+  const [data, setData] = useState([]);
+  const columns = useMemo(() => [
+      {
+        Header: "Player ID",
+        accessor: "player_id",
+      },
+      {
+        Header: "First Name",
+        accessor: "first_name",
+      },
+      {
+        Header: "Last Name",
+        accessor: "last_name",
+      },
+      {
+        Header: "Team",
+        accessor: "team",
+      },
+    ]);
+   
+    useEffect(() => {
+      async function getData(){
+        await axios
+          .get("http://127.0.0.1:8000/players/")
+          .then((response) => {
+            console.log(response.data);
+            setData(response.data);
+            setLoadingData(false);
+          });
+      }
+      if (loadingData) {
+        getData();
+      }
+    }, )
+
+  return (  
     <div className="App">
       <header className="App-header">
-      
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1 className="text-3xl font-bold underline">
-          Hello world!
-        </h1>
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1> Ranks</h1>
+        {loadingData ? (
+          <p>Loading Data...</p>
+        ):(
+          <Table columns={columns} data={data} />
+        )}
       </header>
+      
     </div>
   );
+  
 }
 
 export default Ranks;
