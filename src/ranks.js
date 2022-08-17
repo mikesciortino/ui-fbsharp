@@ -9,16 +9,12 @@ function Ranks(){
   const [data, setData] = useState([]);
   const columns = useMemo(() => [
       {
-        Header: "Player ID",
-        accessor: "player_id",
+        Header: "Name",
+        accessor: "full_name",
       },
       {
-        Header: "First Name",
-        accessor: "first_name",
-      },
-      {
-        Header: "Last Name",
-        accessor: "last_name",
+        Header: "Position",
+        accessor: "position",
       },
       {
         Header: "Team",
@@ -29,7 +25,7 @@ function Ranks(){
     useEffect(() => {
       async function getData(){
         await axios
-          .get("http://127.0.0.1:8000/players/")
+          .get("http://127.0.0.1:8000/ranks/")
           .then((response) => {
             console.log(response.data);
             setData(response.data);
@@ -39,7 +35,7 @@ function Ranks(){
       if (loadingData) {
         getData();
       }
-    }, )
+    }, [loadingData] )
 
   return (  
     <div className="App">
