@@ -2,8 +2,7 @@ import { data } from 'autoprefixer';
 import axios from 'axios';
 import React, {useState, useEffect, useMemo} from 'react';
 import logo from './logo.svg';
-import Table, {SelectColumnFilter, PositionFilter} from "./Table";
-
+import Table from "./Table";
 
 function Ranks(){
   const [loadingData, setLoadingData] = useState(true);
@@ -16,17 +15,14 @@ function Ranks(){
       {
         Header: "Name",
         accessor: "full_name",
-        filter: 'includes',  // new
       },
       {
         Header: "Positional Rank",
         accessor: "positionalRank",
-        Cell: PositionFilter, // new
       },
       {
         Header: "Team",
         accessor: "team",
-        filter: 'includes',  // new
       },
       {
         Header: "ADP",
@@ -35,11 +31,6 @@ function Ranks(){
       {
         Header: "ADP Delta",
         accessor: "adpDelta",
-      },
-      {
-        Header: "Position",
-        accessor: "position",
-        Filter: SelectColumnFilter,  // new
       },
     ];
    
@@ -59,16 +50,13 @@ function Ranks(){
     }, [loadingData] )
 
   return (  
-    <div className="App min-h-screen bg-gray-100 text-gray-900">
-      <header className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
-        <h1 className="text-xl font-semibold"> Ranks</h1>
+    <div className="App">
+      <header className="App-header">
+        <h1> Ranks</h1>
         {loadingData ? (
           <p>Loading Data...</p>
         ):(
-          <div className='mt-4 grid'>
-            <Table columns={columns} data={data} />
-          </div>
-          
+          <Table columns={columns} data={data} />
         )}
       </header>
       
