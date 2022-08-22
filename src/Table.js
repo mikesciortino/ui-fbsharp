@@ -1,11 +1,10 @@
 // src/Table.js
 import React, {useState, useEffect} from "react";
 import { useTable, useGlobalFilter, useAsyncDebounce, useFilters, useSortBy, usePagination  } from "react-table";
-import { ChevronDoubleLeftIcon, ChevronLeftIcon, ChevronRightIcon, ChevronDoubleRightIcon } from '@heroicons/react/solid'
+import { ChevronDoubleLeftIcon, ChevronLeftIcon, ChevronRightIcon, ChevronDoubleRightIcon, RefreshIcon } from '@heroicons/react/solid'
 import { Button, PageButton } from './shared/Button'
 import classNames from 'classnames';
 import axios from 'axios';
-
 
 export function PositionFilter({ value }) {
   const position = value ? value.toLowerCase() : "unknown";
@@ -25,40 +24,6 @@ export function PositionFilter({ value }) {
   );
 }
 
-// export function DraftedFilter({ value }) {
-//   const position = value ? value.toLowerCase() : "unknown";
-//   const [loadingData, setLoadingData] = useState(true);
-//   const [data, setData] = useState([]);
-
-//   useEffect(() => {
-//     async function getData(){
-//       await axios
-//         .get("https://api.sleeper.app/v1/draft/<draft_id>")
-//         .then((response) => {
-//           console.log(response.data);
-//           setData(response.data);
-//           setLoadingData(false);
-//         });
-//     }
-//     if (loadingData) {
-//       getData();
-//     }
-//   }, [loadingData] )
-
-//   return (
-//     <span
-//       className={classNames(
-//         "px-3 py-1 uppercase leading-wide font-bold text-xs rounded-full shadow-sm",
-//         player.startsWith("rb") ? "bg-green-100 text-green-700" : null,
-//         player.startsWith("te") ? "bg-yellow-100 text-yellow-700" : null,
-//         player.startsWith("qb") ? "bg-red-100 text-red-700" : null,
-//         player.startsWith("wr") ? "bg-blue-100 text-blue-700" : null
-//       )}
-//     >
-//       {player}
-//     </span>
-//   );
-// }
 
 function GlobalFilter({
   preGlobalFilteredRows,
@@ -125,10 +90,9 @@ export function SelectColumnFilter({
   )
 }
 
-function Table({ columns, data }) {
+export function Table({ columns, data, draftedPlayers }) {
   // Use the state and functions returned from useTable to build your UI
   const { 
-   
     getTableProps,
     getTableBodyProps, 
     headerGroups, 
@@ -152,7 +116,7 @@ function Table({ columns, data }) {
     useSortBy,  // new
     usePagination,  // new
     );
-
+    console.log(draftedPlayers);
   // Render the UI for your table
   return (
     <>
@@ -166,16 +130,23 @@ function Table({ columns, data }) {
             />
           </div>
           <div className="w-4/12 ml-2">
-          {headerGroups.map((headerGroup) =>
-            headerGroup.headers.map((column) =>
-              column.Filter ? (
-                <div key={column.id}>
-                  {column.render("Filter")}
-                </div>
-                ) : null
-              )
-            )}
+            {headerGroups.map((headerGroup) =>
+              headerGroup.headers.map((column) =>
+                column.Filter ? (
+                  <div key={column.id}>
+                    {column.render("Filter")}
+                  </div>
+                  ) : null
+                )
+              )}
           </div>
+          {/* <div className="w-1/12 ml-2 mt-2">
+            <Button onClick={DraftedFilter(draftid)}>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clipRule="evenodd" />
+              </svg>
+            </Button> px-3 py-1 uppercase
+          </div> */}
         </div> 
       </div>
 
@@ -186,7 +157,7 @@ function Table({ columns, data }) {
               <table {...getTableProps()} className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   {headerGroups.map(headerGroup => (
-                    <tr {...headerGroup.getHeaderGroupProps()}>
+                    <tr {...headerGroup.getHeaderGroupProps() }>
                       {headerGroup.headers.map(column => (
                         // Add the sorting props to control sorting. For this example
                         // we can add them into the header props
@@ -220,7 +191,13 @@ function Table({ columns, data }) {
                         {row.cells.map(cell => {
                           return (
                             <td
-                              {...cell.getCellProps()}
+                              {...cell.getCellProps({
+                                style: {
+                                  // color : cell.value === "6813" ? 'red': null,
+                                  backgroundColor : draftedPlayers.find(u => u.player_id === cell.value) ? 'red': null,
+                                }
+           
+                             })}
                               className="px-6 py-4 whitespace-nowrap"
                             >
                               {cell.render('Cell')}

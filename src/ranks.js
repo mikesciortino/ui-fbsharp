@@ -2,12 +2,16 @@ import { data } from 'autoprefixer';
 import axios from 'axios';
 import React, {useState, useEffect, useMemo} from 'react';
 import logo from './logo.svg';
-import Table, {SelectColumnFilter, PositionFilter} from "./Table";
-
+import Table, {SelectColumnFilter, PositionFilter, } from "./Table";
 
 function Ranks(){
   const [loadingData, setLoadingData] = useState(true);
   const [data, setData] = useState([]);
+  const [draftID, setDraftID] = useState([]);
+  const [drafted, setDrafted] = useState([]);
+  const [loadingDraft, setLoadingDraft] = useState(true);
+  const [draftURL, setDraftURL] = useState();
+
   const columns = [
       {
         Header: "Rank",
@@ -17,6 +21,7 @@ function Ranks(){
         Header: "Name",
         accessor: "full_name",
         filter: 'includes',  // new
+
       },
       {
         Header: "Positional Rank",
@@ -41,20 +46,58 @@ function Ranks(){
         accessor: "position",
         Filter: SelectColumnFilter,  // new
       },
+      {
+        Header: "Player ID",
+        accessor: "player_id",
+        // Cell: s => (
+        //   <span className={drafted.find(u => u.player_id === s.value) ? "GreenColor" : "RedColor"}>
+        //     {s.value} 
+        //   </span>
+        // ),
+        // Cell:  s => {
+        //   s.value === "6813" ? "bg-green-100 text-green-700" : null;
+        // }
+      },
     ];
-   
+   console.log(drafted);
+    const handleInput = event => {
+      setDraftID(event.target.value);
+      setDraftURL("https://api.sleeper.app/v1/draft/" + draftID + "/picks");
+      console.log(draftURL);
+    };
+
+    // console.log("draftURL:");
+
+
+    useEffect(() => {
+      async function getData(){
+        await axios
+          .get("https://api.sleeper.app/v1/draft/" + draftID + "/picks")
+          .then((response) => {
+            //console.log(response.data);
+            setDrafted(response.data);
+            setLoadingDraft(false);
+          });
+      }
+      if (loadingDraft) {
+        getData();
+    
+      }
+    }, [loadingDraft, draftID]);
+  
     useEffect(() => {
       async function getData(){
         await axios
           .get("http://127.0.0.1:8000/ranks/?ordering=rank")
           .then((response) => {
-            console.log(response.data);
+            //console.log(response.data);
             setData(response.data);
             setLoadingData(false);
           });
       }
       if (loadingData) {
         getData();
+        
       }
     }, [loadingData] )
 
@@ -62,11 +105,12 @@ function Ranks(){
     <div className="App min-h-screen bg-gray-100 text-gray-900">
       <header className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
         <h1 className="text-xl font-semibold"> Ranks</h1>
+        <input placeholder="Enter Draft ID" onChange={handleInput}/>
         {loadingData ? (
           <p>Loading Data...</p>
         ):(
           <div className='mt-4 grid'>
-            <Table columns={columns} data={data} />
+            <Table columns={columns} data={data} draftedPlayers={drafted} />
           </div>
           
         )}
