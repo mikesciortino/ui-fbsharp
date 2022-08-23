@@ -1,8 +1,6 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
-import logo from './shared\\logo.png';
+import { Disclosure} from '@headlessui/react'
+import { MenuIcon, XIcon } from '@heroicons/react/outline'
 
 const navigation = [
   { name: 'Home', href: '/', current: true },
@@ -38,7 +36,7 @@ export default function NavBar() {
               </div>
               <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
                 <div className="flex-shrink-0 flex items-center">
-                  <img
+                  {/* <img
                     className="block lg:hidden h-8 w-auto"
                     src={logo}
                     alt="FBSharp"
@@ -47,7 +45,7 @@ export default function NavBar() {
                     className="hidden lg:block h-8 w-auto"
                     src={logo}                   
                     alt="FBSharp"
-                  />
+                  /> */}
                 <h3 className='
                 text-white'>FBSharp</h3>  
                 </div>

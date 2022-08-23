@@ -4,7 +4,6 @@ import { useTable, useGlobalFilter, useAsyncDebounce, useFilters, useSortBy, use
 import { ChevronDoubleLeftIcon, ChevronLeftIcon, ChevronRightIcon, ChevronDoubleRightIcon, RefreshIcon } from '@heroicons/react/solid'
 import { Button, PageButton } from './shared/Button'
 import classNames from 'classnames';
-import axios from 'axios';
 
 export function PositionFilter({ value }) {
   const position = value ? value.toLowerCase() : "unknown";
