@@ -1,5 +1,5 @@
 // src/Table.js
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useMemo} from "react";
 import { useTable, useGlobalFilter, useAsyncDebounce, useFilters, useSortBy, usePagination  } from "react-table";
 import { ChevronDoubleLeftIcon, ChevronLeftIcon, ChevronRightIcon, ChevronDoubleRightIcon, RefreshIcon } from '@heroicons/react/solid'
 import { Button, PageButton } from './shared/Button'
@@ -92,6 +92,7 @@ export function SelectColumnFilter({
 
 export function Table({ columns, data, draftedPlayers }) {
   // Use the state and functions returned from useTable to build your UI
+    // console.log("draftURL:");
   const { 
     getTableProps,
     getTableBodyProps, 
@@ -116,7 +117,7 @@ export function Table({ columns, data, draftedPlayers }) {
     useSortBy,  // new
     usePagination,  // new
     );
-    console.log(draftedPlayers);
+    console.log(columns)
   // Render the UI for your table
   return (
     <>
@@ -184,17 +185,18 @@ export function Table({ columns, data, draftedPlayers }) {
                   {...getTableBodyProps()}
                   className="bg-white divide-y divide-gray-200"
                 >
+                 
                   {page.map((row, i) => {  // new
                     prepareRow(row)
                     return (
                       <tr {...row.getRowProps()}>
                         {row.cells.map(cell => {
                           return (
+                           
                             <td
                               {...cell.getCellProps({
                                 style: {
-                                  // color : cell.value === "6813" ? 'red': null,
-                                  backgroundColor : draftedPlayers.find(u => u.player_id === cell.value) ? 'red': null,
+                                  color : cell.column.Header === "DRAFTED" ? 'white': null,
                                 }
            
                              })}

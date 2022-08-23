@@ -19,6 +19,7 @@ function App() {
         <Route path="/drafttool" element={<ComingSoon />} />
         <Route path="/blog" element={<ComingSoon />} />
         <Route path="/hypehub" element={<ComingSoon />} />
+        <Route path="/tradecalculator" element={<ComingSoon />} />
         <Route path="/about" element={<About />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
