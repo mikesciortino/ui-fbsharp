@@ -6,6 +6,7 @@ import Home from './Home'
 import About from './About';
 import NotFound from './NotFound';
 import ComingSoon from './ComingSoon';
+import DraftTool from './DraftTool';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 
@@ -16,7 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/ranks" element={<Ranks />} />
-        <Route path="/drafttool" element={<ComingSoon />} />
+        <Route path="/drafttool" element={<DraftTool />} />
         <Route path="/blog" element={<ComingSoon />} />
         <Route path="/hypehub" element={<ComingSoon />} />
         <Route path="/tradecalculator" element={<ComingSoon />} />
