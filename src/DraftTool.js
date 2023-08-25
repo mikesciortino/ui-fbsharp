@@ -56,12 +56,12 @@ function DraftTool(){
       filter: 'includes',  // new
     },
     {
-      Header: "ADP",
-      accessor: "adp",
+      Header: "Age",
+      accessor: "age",
     },
     {
-      Header: "ADP Delta",
-      accessor: "adpDelta",
+      Header: "Priority",
+      accessor: "priority",
     },
     {
       Header: "Position",
