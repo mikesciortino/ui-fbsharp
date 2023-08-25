@@ -6,7 +6,7 @@ const navigation = [
   { name: 'Home', href: '/', current: true },
   { name: 'Ranks', href: '/ranks', current: false },
   { name: 'Draft Tool', href: '/drafttool', current: false },
-  { name: 'Trade Calculator', href: '/tradecalculator', current: false},
+  //{ name: 'Trade Calculator', href: '/tradecalculator', current: false},
   { name: 'Blog', href: '/blog', current: false},
  
   //{ name: 'Hype Hub', href: '/hypehub', current: false},

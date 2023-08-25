@@ -28,12 +28,12 @@ function Ranks(){
       filter: 'includes',  // new
     },
     {
-      Header: "ADP",
-      accessor: "adp",
+      Header: "Age",
+      accessor: "age",
     },
     {
-      Header: "ADP Delta",
-      accessor: "adpDelta",
+      Header: "Priority",
+      accessor: "priority",
     },
     {
       Header: "Position",
@@ -49,7 +49,8 @@ function Ranks(){
   useEffect(() => {
     async function getData(){
       await axios
-        .get("https://api-fbsharp.azurewebsites.net/ranks/?ordering=rank")
+        .get("http://127.0.0.1:8000/ranks/?ordering=rank")
+        //.get("https://api-fbsharp.azurewebsites.net/ranks/?ordering=rank")
         .then((response) => {
           //console.log(response.data);
           setData(response.data);
